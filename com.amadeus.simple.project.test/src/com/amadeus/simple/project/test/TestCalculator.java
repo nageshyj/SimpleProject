@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.amadeus.simple.project.Calculator;
 
 /**
- * Calculator Test
+ * Calculator Test.
  * 
  * @author njayarama
  *

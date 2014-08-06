@@ -6,7 +6,3 @@ sourceSets {
 		java { srcDir 'src' }
     }
 }
-
-configurations {
-  build
-}

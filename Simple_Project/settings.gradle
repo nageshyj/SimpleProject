@@ -1,0 +1,2 @@
+include 'com.amadeus.simple.project'
+include 'com.amadeus.simple.project.test'

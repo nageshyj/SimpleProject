@@ -1,0 +1,32 @@
+
+allprojects {
+
+	apply plugin: 'java'
+
+	repositories { 
+		mavenCentral()
+	}
+}
+
+project(':com.amadeus.simple.project') {
+
+	sourceSets {
+		main {
+			java { srcDir 'src' }
+	    }
+	}
+}
+
+
+project(':com.amadeus.simple.project.test') {
+
+	sourceSets {
+	    test {
+			java { srcDir 'src' }
+	    }
+	}
+	
+	dependencies {
+    	testCompile group: 'junit', name: 'junit', version: '4.+'
+	}
+}

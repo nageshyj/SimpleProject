@@ -29,4 +29,15 @@ public class Calculator {
 	public long multiplyValues(int a, int b) {
 		return a * b;
 	}
+	
+	/**
+	 * Divide 
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public float divideValues(int a, int b) {
+		return a / b;
+	}
 }

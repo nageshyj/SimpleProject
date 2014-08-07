@@ -9,6 +9,50 @@ allprojects {
 	}
 }
 
+configurations {
+	codeCoverage
+	codeCoverageAnt
+}
+dependencies {
+	codeCoverage 'org.jacoco:org.jacoco.agent:0.5.10.201208310627:runtime@jar'
+	codeCoverageAnt 'org.jacoco:org.jacoco.ant:0.5.10.201208310627'
+}
+test {
+	systemProperties = System.properties
+	jvmArgs "-javaagent:${configurations.codeCoverage.asPath}=destfile=${project.buildDir.path}/coverage-results/jacoco.exec,sessionid=HSServ,append=false",
+			'-Djacoco=true', '-Xms128m', '-Xmx512m', '-XX:MaxPermSize=128m'
+}
+task generateCoverageReport << {
+	ant {
+		taskdef(name:'jacocoreport', classname: 'org.jacoco.ant.ReportTask', classpath: configurations.codeCoverageAnt.asPath)
+
+		mkdir dir: "build/reports/coverage"
+
+			jacocoreport {
+				executiondata {
+					fileset(dir: "com.amadeus.simple.project.test/build/jacoco") {
+						include name: 'test.exec'
+					}
+				}
+
+				structure(name: project.name) {
+					classfiles {
+						fileset(dir: "com.amadeus.simple.project/build/classes/main") {
+							//exclude name: 'org/ifxforum/**/*'
+							//exclude name: 'org/gca/euronet/generated**/*'
+						}
+					}
+					sourcefiles(encoding: 'CP1252') {
+						fileset dir: "com.amadeus.simple.project/src"
+					}
+				}
+
+				xml destfile: "build/reports/coverage/jacoco.xml"
+					html destdir: "build/reports/coverage"
+		}
+	}
+}
+
 project(':com.amadeus.simple.project') {
 
 	sourceSets {
